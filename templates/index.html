@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Journey Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Journey Analysis</h1>
+        
+        <!-- File Upload Form -->
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileInput" required>
+            <button type="submit">Upload and Analyze</button>
+        </form>
+
+        {% if funnel_percentages %}
+        <h2>Funnel Analysis</h2>
+        <ul>
+            <li>View Travel Page: {{ funnel_percentages['View Travel Page'] }}%</li>
+            <li>Comment on Travel Page: {{ funnel_percentages['Comment on Travel Page'] }}%</li>
+            <li>Buy Product: {{ funnel_percentages['Buy Product'] }}%</li>
+        </ul>
+        {% endif %}
+
+        {% if clusters %}
+        <h2>Customer Segmentation</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>Cluster</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cluster in clusters %}
+                <tr>
+                    <td>{{ cluster.UserID }}</td>
+                    <td>{{ cluster.Cluster }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>
